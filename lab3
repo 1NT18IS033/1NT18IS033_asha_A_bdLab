@@ -1,0 +1,134 @@
+mongo
+MongoDB shell version v4.4.4
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("3f9da2a7-88fa-4a7f-845f-958e7306257b") }
+MongoDB server version: 4.4.4
+---
+The server generated these startup warnings when booting: 
+        2021-04-01T15:19:17.146+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+        2021-04-01T15:19:23.632+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> use customer
+switched to db customer
+> db.createCollection("Customers")
+{ "ok" : 1 }
+> db.Customers.insertMany([{cust_id:"A123",Amount:500,Status:"A"},{cust_id:"A123",Amount:250,Status:"A"},{cust_id:"B123",Amount:200,Status:"A"},{cust_id:"A123",Amount:300,Status:"D"}])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("606a8555678b18971268bf42"),
+		ObjectId("606a8555678b18971268bf43"),
+		ObjectId("606a8555678b18971268bf44"),
+		ObjectId("606a8555678b18971268bf45")
+	]
+}
+> db.Customers.aggregate([$match:{Status:"A"}])
+uncaught exception: SyntaxError: missing ] after element list :
+@(shell):1:30
+> db.Customers.aggregate([{$match:{Status:"A"}}])
+{ "_id" : ObjectId("606a8555678b18971268bf42"), "cust_id" : "A123", "Amount" : 500, "Status" : "A" }
+{ "_id" : ObjectId("606a8555678b18971268bf43"), "cust_id" : "A123", "Amount" : 250, "Status" : "A" }
+{ "_id" : ObjectId("606a8555678b18971268bf44"), "cust_id" : "B123", "Amount" : 200, "Status" : "A" }
+> db.Customers.aggregate([{$match:{Status:"A"}},{$group:{_id:"$cust_id"}}])
+{ "_id" : "A123" }
+{ "_id" : "B123" }
+> db.Customers.aggregate([{$group:{_id:"$cust_id",max_value:{$max:"$Amount"}}}])
+
+{ "_id" : "A123", "max_value" : 500 }
+{ "_id" : "B123", "max_value" : 200 }
+> db.Customers.aggregate([{$group:{_id:"$cust_id",count:{$sum:1}}}])
+{ "_id" : "A123", "count" : 3 }
+{ "_id" : "B123", "count" : 1 }
+> db.Customers.aggregate([{$group:{_id:"$_id",max_value:{$max:"$Amount"}}}])
+{ "_id" : ObjectId("606a8555678b18971268bf44"), "max_value" : 200 }
+{ "_id" : ObjectId("606a8555678b18971268bf43"), "max_value" : 250 }
+{ "_id" : ObjectId("606a8555678b18971268bf45"), "max_value" : 300 }
+{ "_id" : ObjectId("606a8555678b18971268bf42"), "max_value" : 500 }
+> db.Customers.aggregate([{$group:{_id:"_id",max_value:{$max:"$Amount"}}}])
+{ "_id" : "_id", "max_value" : 500 }
+> db.Customers.aggregate([{$group:{_id:"$_id",count:{$sum:1}}}])
+{ "_id" : ObjectId("606a8555678b18971268bf44"), "count" : 1 }
+{ "_id" : ObjectId("606a8555678b18971268bf43"), "count" : 1 }
+{ "_id" : ObjectId("606a8555678b18971268bf45"), "count" : 1 }
+{ "_id" : ObjectId("606a8555678b18971268bf42"), "count" : 1 }
+> db.Customers.aggregate([{$group:{_id:"cust_id",count:{$sum:1}}}])
+{ "_id" : "cust_id", "count" : 4 }
+> db.Customers.aggregate([{$group:{_id:"$cust_id",count:{$sum:1}}}])
+{ "_id" : "A123", "count" : 3 }
+{ "_id" : "B123", "count" : 1 }
+> db.Customers.aggregate([{$group:{_id:"$cust_id","$Status",count:{$sum:1}}}])
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:57
+> db.Customers.aggregate([{$group:{_id:{"$cust_id","$Status"},count:{$sum:1}}}])
+
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:48
+> db.Customers.aggregate([{$group:{_id:"$cust_id",count:{$sum:1}}}])
+{ "_id" : "A123", "count" : 3 }
+{ "_id" : "B123", "count" : 1 }
+> db.Customers.aggregate([{$project:{cust_id:1,Status:1}}])
+{ "_id" : ObjectId("606a8555678b18971268bf42"), "cust_id" : "A123", "Status" : "A" }
+{ "_id" : ObjectId("606a8555678b18971268bf43"), "cust_id" : "A123", "Status" : "A" }
+{ "_id" : ObjectId("606a8555678b18971268bf44"), "cust_id" : "B123", "Status" : "A" }
+{ "_id" : ObjectId("606a8555678b18971268bf45"), "cust_id" : "A123", "Status" : "D" }
+> db.Customers.aggregate([{$project:{cust_id:1,Status:1,_id:0}}])
+{ "cust_id" : "A123", "Status" : "A" }
+{ "cust_id" : "A123", "Status" : "A" }
+{ "cust_id" : "B123", "Status" : "A" }
+{ "cust_id" : "A123", "Status" : "D" }
+> db.Customers.aggregate([{$limit:3}])
+{ "_id" : ObjectId("606a8555678b18971268bf42"), "cust_id" : "A123", "Amount" : 500, "Status" : "A" }
+{ "_id" : ObjectId("606a8555678b18971268bf43"), "cust_id" : "A123", "Amount" : 250, "Status" : "A" }
+{ "_id" : ObjectId("606a8555678b18971268bf44"), "cust_id" : "B123", "Amount" : 200, "Status" : "A" }
+> db.Customers.aggregate([{$group:{_id:"$cust_id",sum:{$sum:"$Amount"}}}])
+{ "_id" : "B123", "sum" : 200 }
+{ "_id" : "A123", "sum" : 1050 }
+> db.Customers.aggregate([{$group:{_id:{"cust_id"},max_value:{$max:"$Amount"}}}])
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:47
+> db.Customers.aggregate([{$group:{_id:{"$cust_id"},max_value:{$max:"$Amount"}}}])
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:48
+> db.Customers.aggregate([{$group:{_id:"cust_id",max_value:{$max:"$Amount"}}}])
+{ "_id" : "cust_id", "max_value" : 500 }
+> db.Customers.aggregate([{$group:{_id:"{cust_id:1}",max_value:{$max:"$Amount"}}}])
+{ "_id" : "{cust_id:1}", "max_value" : 500 }
+> db.Customers.aggregate([{$group:{_id:"${cust_id:1}",max_value:{$max:"$Amount"}}}])
+{ "_id" : null, "max_value" : 500 }
+> db.Customers.aggregate([{$group:{_id:"${cust_id}",max_value:{$max:"$Amount"}}}])
+{ "_id" : null, "max_value" : 500 }
+> db.Customers.aggregate([{$group:{_id:"${cust_id:null}",max_value:{$max:"$Amount"}}}])
+{ "_id" : null, "max_value" : 500 }
+> db.Customers.aggregate([{$group:{_id:"${cust_id:0}",max_value:{$max:"$Amount"}}}])
+{ "_id" : null, "max_value" : 500 }
+> db.Customers.aggregate([{$group:{_id:"${$project:{cust_id:1}}",max_value:{$max:"$Amount"}}}])
+{ "_id" : null, "max_value" : 500 }
+> db.Customers.aggregate([{$group:{_id:"cust_id",max_value:{$max:"$Amount"}}}])
+{ "_id" : "cust_id", "max_value" : 500 }
+> db.Customers.aggregate([{$group:{_id:"$project:{cust_id:1}",max_value:{$max:"$Amount"}}}])
+{ "_id" : null, "max_value" : 500 }
+> db.Customers.aggregate([{$group:{_id:"$project:{_id:1}",max_value:{$max:"$Amount"}}}])
+{ "_id" : null, "max_value" : 500 }
+> db.Customers.aggregate([{$group:{_id:"_id",max_value:{$max:"$Amount"}}}])
+{ "_id" : "_id", "max_value" : 500 }
+> db.Customers.aggregate([{$match:{Amount:{gte:300}}}])
+> db.Customers.aggregate([{$match:{Amount:{$gte:300}}}])
+{ "_id" : ObjectId("606a8555678b18971268bf42"), "cust_id" : "A123", "Amount" : 500, "Status" : "A" }
+{ "_id" : ObjectId("606a8555678b18971268bf45"), "cust_id" : "A123", "Amount" : 300, "Status" : "D" }
+> db.Customers.aggregate([{$group:{_id:"$cust_id",max_value:{$max:"$Amount"}}}])
+{ "_id" : "A123", "max_value" : 500 }
+{ "_id" : "B123", "max_value" : 200 }
+> 
+
+

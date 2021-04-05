@@ -1,0 +1,69 @@
+{
+ filter: {
+  _id: {
+   $not: {
+    $eq: 1
+   }
+  }
+ }
+}
+
+{
+ filter: {
+  Age: {
+   $lte: 20
+  }
+ }
+}
+
+{
+ filter: {
+  Age: {
+   $not: {
+    $eq: 20
+   }
+  }
+ }
+}
+
+{
+ filter: {
+  Age: {
+   $not: {
+    $gt: 24
+   }
+  }
+ }
+}
+
+{
+ filter: {
+  $or: [
+   {
+    Exp: 5
+   },
+   {
+    Exp: 6
+   }
+  ]
+ }
+}
+
+{
+ filter: {
+  $and: [
+   {
+    Lname: 'Bhat'
+   },
+   {
+    Exp: 5
+   }
+  ]
+ }
+}
+
+{
+ filter: {
+  Fname: 'Asha'
+ }
+}
