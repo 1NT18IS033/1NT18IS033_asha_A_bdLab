@@ -1,0 +1,1003 @@
+hive> show databases;
+OK
+customer
+default
+Time taken: 2.971 seconds, Fetched: 2 row(s)
+hive> create database Cust;
+OK
+Time taken: 1.714 seconds
+hive> use Cust;
+OK
+Time taken: 0.106 seconds
+hive> create table bank(Bank_id int,Bname string,Blocation string)row format delimited fields terminated by ",";
+OK
+Time taken: 2.554 seconds
+hive> create table bank(Cust_id int,Cname string,income float, acc_id int,dob date)row format delimited fields terminated by ",";
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. AlreadyExistsException(message:Table hive.Cust.bank already exists)
+hive> create table customer(Cust_id int,Cname string,income float, acc_id int,dob date)row format delimited fields terminated by ",";
+OK
+Time taken: 0.236 seconds
+hive> create table Account(acc_id int,Cust_id int,Bank_id int)row format delimited fields terminated by ",";
+OK
+Time taken: 0.339 seconds
+hive> insert into bank values(101,"SBI","Bangalore"),(102,"Axis","Mysore"),(103,"BOB","Dharwad");
+Query ID = hdoop_20210707182138_b1e22c11-f7cd-4306-b4f2-20ae6bf69d48
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0001, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0001/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0001
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-07-07 18:23:43,467 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 18:24:22,726 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.54 sec
+2021-07-07 18:24:50,571 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.85 sec
+MapReduce Total cumulative CPU time: 7 seconds 850 msec
+Ended Job = job_1625659707217_0001
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://127.0.0.1:9000/user/hive/warehouse/cust.db/bank/.hive-staging_hive_2021-07-07_18-21-38_369_3597759571545103119-1/-ext-10000
+Loading data to table cust.bank
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.85 sec   HDFS Read: 16904 HDFS Write: 382 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 850 msec
+OK
+Time taken: 198.6 seconds
+hive> insert into bank values(104,"SBI","Yellapur"),(105,"Axis","Sirsi");
+Query ID = hdoop_20210707182652_e2dcd77e-bc0a-4ed6-aca5-4f3c4afa76b4
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0002, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0002/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0002
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-07-07 18:27:24,181 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 18:27:45,241 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.39 sec
+2021-07-07 18:28:14,932 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.8 sec
+MapReduce Total cumulative CPU time: 7 seconds 800 msec
+Ended Job = job_1625659707217_0002
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://127.0.0.1:9000/user/hive/warehouse/cust.db/bank/.hive-staging_hive_2021-07-07_18-26-52_715_7976836924585372864-1/-ext-10000
+Loading data to table cust.bank
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.8 sec   HDFS Read: 16809 HDFS Write: 322 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 800 msec
+OK
+Time taken: 85.843 seconds
+hive> select * from bank;
+OK
+101	SBI	Bangalore
+102	Axis	Mysore
+103	BOB	Dharwad
+104	SBI	Yellapur
+105	Axis	Sirsi
+Time taken: 1.763 seconds, Fetched: 5 row(s)
+hive> insert into customer values(201,"Asha",30000.00,301,2000-07-27),(202,"Goutam",80000.00,302,2000-11-16),(203,"Bharati",50000.00,303,1991-06-26);
+FAILED: UDFArgumentException CAST as DATE only allows date,string, or timestamp types
+hive> insert into customer values(201,"Asha",30000.00,301,"2000-07-27"),(202,"Goutam",80000.00,302,"2000-11-16"),(203,"Bharati",50000.00,303,"1991-06-26");
+Query ID = hdoop_20210707183511_98b67a0d-63f4-461d-b9ff-33f6ffbad51a
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1625659707217_0003, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0003/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0003
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0
+2021-07-07 18:35:40,187 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 18:35:58,528 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.2 sec
+MapReduce Total cumulative CPU time: 4 seconds 200 msec
+Ended Job = job_1625659707217_0003
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://127.0.0.1:9000/user/hive/warehouse/cust.db/customer/.hive-staging_hive_2021-07-07_18-35-11_617_8710127301975818774-1/-ext-10000
+Loading data to table cust.customer
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1   Cumulative CPU: 4.2 sec   HDFS Read: 6686 HDFS Write: 170 SUCCESS
+Total MapReduce CPU Time Spent: 4 seconds 200 msec
+OK
+Time taken: 49.918 seconds
+hive> insert into customer values(204,"Pavitra",60000.00,304,"1990-07-26"),(205,"Nandita",70000.00,305,"1992-06-15");
+Query ID = hdoop_20210707183728_f6a70863-391f-4818-9788-04c6981f1902
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1625659707217_0004, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0004/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0004
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0
+2021-07-07 18:37:53,422 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 18:38:10,654 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.44 sec
+MapReduce Total cumulative CPU time: 4 seconds 440 msec
+Ended Job = job_1625659707217_0004
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://127.0.0.1:9000/user/hive/warehouse/cust.db/customer/.hive-staging_hive_2021-07-07_18-37-28_780_4605519924051754910-1/-ext-10000
+Loading data to table cust.customer
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1   Cumulative CPU: 4.44 sec   HDFS Read: 6508 HDFS Write: 139 SUCCESS
+Total MapReduce CPU Time Spent: 4 seconds 440 msec
+OK
+Time taken: 45.215 seconds
+hive> select * from customer;
+OK
+201	Asha	30000.0	301	2000-07-27
+202	Goutam	80000.0	302	2000-11-16
+203	Bharati	50000.0	303	1991-06-26
+204	Pavitra	60000.0	304	1990-07-26
+205	Nandita	70000.0	305	1992-06-15
+Time taken: 0.589 seconds, Fetched: 5 row(s)
+hive> insert into Account values(101,202,301),(102,203,302),(103,201,304);
+Query ID = hdoop_20210707184046_68a86432-15db-4f95-9cd7-f28e52e8bb10
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0005, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0005/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0005
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-07-07 18:41:10,078 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 18:41:27,237 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.78 sec
+2021-07-07 18:41:48,383 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 8.24 sec
+MapReduce Total cumulative CPU time: 8 seconds 240 msec
+Ended Job = job_1625659707217_0005
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://127.0.0.1:9000/user/hive/warehouse/cust.db/account/.hive-staging_hive_2021-07-07_18-40-46_872_3782205745476209103-1/-ext-10000
+Loading data to table cust.account
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 8.24 sec   HDFS Read: 15710 HDFS Write: 342 SUCCESS
+Total MapReduce CPU Time Spent: 8 seconds 240 msec
+OK
+Time taken: 63.7 seconds
+hive> delete from Account where acc_id=101;
+FAILED: SemanticException [Error 10294]: Attempt to do update or delete using transaction manager that does not support these operations.
+hive> delete from Account [where acc_id=101];
+NoViableAltException(362@[212:1: tableName : (db= identifier DOT tab= identifier -> ^( TOK_TABNAME $db $tab) |tab= identifier -> ^( TOK_TABNAME $tab) );])
+	at org.antlr.runtime.DFA.noViableAlt(DFA.java:158)
+	at org.antlr.runtime.DFA.predict(DFA.java:116)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_FromClauseParser.tableName(HiveParser_FromClauseParser.java:4513)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.tableName(HiveParser.java:45148)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.deleteStatement(HiveParser.java:42280)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.execStatement(HiveParser.java:2508)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.statement(HiveParser.java:1420)
+	at org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:220)
+	at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:74)
+	at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:67)
+	at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:616)
+	at org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1826)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1773)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1768)
+	at org.apache.hadoop.hive.ql.reexec.ReExecDriver.compileAndRespond(ReExecDriver.java:126)
+	at org.apache.hadoop.hive.ql.reexec.ReExecDriver.run(ReExecDriver.java:214)
+	at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:239)
+	at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:188)
+	at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:402)
+	at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:821)
+	at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:759)
+	at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:683)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:323)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:236)
+FAILED: ParseException line 1:20 cannot recognize input near 'Account' '[' 'where' in table name
+hive> delete from Account WHERE acc_id=101;
+FAILED: SemanticException [Error 10294]: Attempt to do update or delete using transaction manager that does not support these operations.
+hive> DELETE from Account WHERE acc_id=101;
+FAILED: SemanticException [Error 10294]: Attempt to do update or delete using transaction manager that does not support these operations.
+hive> drop table Account;
+OK
+Time taken: 2.074 seconds
+hive> show tables;
+OK
+bank
+customer
+Time taken: 0.226 seconds, Fetched: 2 row(s)
+hive> create table Account(acc_id int,Cust_id int,Bank_id int)row format delimited fields terminated by ",";
+OK
+Time taken: 0.245 seconds
+hive> show tables;
+OK
+account
+bank
+customer
+Time taken: 0.141 seconds, Fetched: 3 row(s)
+hive> insert into Account values(301,202,101),(302,203,102),(303,201,104);
+Query ID = hdoop_20210707184933_552839b4-ab38-4f5d-b60c-2de0f26d275b
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0006, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0006/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0006
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-07-07 18:49:57,672 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 18:50:14,133 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.5 sec
+2021-07-07 18:50:37,615 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.87 sec
+MapReduce Total cumulative CPU time: 7 seconds 870 msec
+Ended Job = job_1625659707217_0006
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://127.0.0.1:9000/user/hive/warehouse/cust.db/account/.hive-staging_hive_2021-07-07_18-49-33_317_1598376274790812557-1/-ext-10000
+Loading data to table cust.account
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.87 sec   HDFS Read: 15710 HDFS Write: 342 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 870 msec
+OK
+Time taken: 67.545 seconds
+hive> insert into Account values(304,202,103),(305,203,105);
+Query ID = hdoop_20210707185122_c75489a5-d417-4d07-9804-884b8dfe0dc3
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0007, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0007/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0007
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-07-07 18:51:43,953 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 18:52:02,706 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.24 sec
+2021-07-07 18:52:17,681 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.65 sec
+MapReduce Total cumulative CPU time: 7 seconds 650 msec
+Ended Job = job_1625659707217_0007
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://127.0.0.1:9000/user/hive/warehouse/cust.db/account/.hive-staging_hive_2021-07-07_18-51-22_559_3622744112434897685-1/-ext-10000
+Loading data to table cust.account
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.65 sec   HDFS Read: 15641 HDFS Write: 313 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 650 msec
+OK
+Time taken: 58.13 seconds
+hive> select * from Account;
+OK
+301	202	101
+302	203	102
+303	201	104
+304	202	103
+305	203	105
+Time taken: 0.47 seconds, Fetched: 5 row(s)
+hive> alter table Account rename to Accounts;
+OK
+Time taken: 0.529 seconds
+hive> show tables;
+OK
+accounts
+bank
+customer
+Time taken: 0.135 seconds, Fetched: 3 row(s)
+hive> alter table bank change blocation location string;
+OK
+Time taken: 0.348 seconds
+hive> desc bank;
+OK
+bank_id             	int                 	                    
+bname               	string              	                    
+location            	string              	                    
+Time taken: 0.147 seconds, Fetched: 3 row(s)
+hive> select c.Cust_id,c.cname from customer c,bank b,accounts a where b.bank_id=a.bank_id and c.cust_id=a.cust_id and b.bname="Axis";
+No Stats for cust@customer, Columns: cname, cust_id
+Query ID = hdoop_20210707185828_8359c9f9-4dc4-432d-bc5d-a3536bcec9fd
+Total jobs = 1
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1625659707217_0008, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0008/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0008
+Hadoop job information for Stage-5: number of mappers: 1; number of reducers: 0
+2021-07-07 18:59:29,919 Stage-5 map = 0%,  reduce = 0%
+2021-07-07 18:59:47,457 Stage-5 map = 100%,  reduce = 0%, Cumulative CPU 4.57 sec
+MapReduce Total cumulative CPU time: 4 seconds 570 msec
+Ended Job = job_1625659707217_0008
+MapReduce Jobs Launched: 
+Stage-Stage-5: Map: 1   Cumulative CPU: 4.57 sec   HDFS Read: 11921 HDFS Write: 135 SUCCESS
+Total MapReduce CPU Time Spent: 4 seconds 570 msec
+OK
+203	Bharati
+203	Bharati
+Time taken: 81.199 seconds, Fetched: 2 row(s)
+hive> select distinct c.Cust_id,c.cname from customer c,bank b,accounts a where b.bank_id=a.bank_id and c.cust_id=a.cust_id and b.bname="Axis";
+No Stats for cust@customer, Columns: cname, cust_id
+Query ID = hdoop_20210707190029_6ec2d682-af7c-4207-9036-1de1ee93ba84
+Total jobs = 1
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0009, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0009/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0009
+Hadoop job information for Stage-3: number of mappers: 1; number of reducers: 1
+2021-07-07 19:01:19,468 Stage-3 map = 0%,  reduce = 0%
+2021-07-07 19:01:35,728 Stage-3 map = 100%,  reduce = 0%, Cumulative CPU 4.38 sec
+2021-07-07 19:01:51,843 Stage-3 map = 100%,  reduce = 100%, Cumulative CPU 8.45 sec
+MapReduce Total cumulative CPU time: 8 seconds 450 msec
+Ended Job = job_1625659707217_0009
+MapReduce Jobs Launched: 
+Stage-Stage-3: Map: 1  Reduce: 1   Cumulative CPU: 8.45 sec   HDFS Read: 21940 HDFS Write: 111 SUCCESS
+Total MapReduce CPU Time Spent: 8 seconds 450 msec
+OK
+203	Bharati
+Time taken: 84.39 seconds, Fetched: 1 row(s)
+hive> update Accounts set cust_id=204 where acc_id=304;
+FAILED: SemanticException [Error 10294]: Attempt to do update or delete using transaction manager that does not support these operations.
+hive> select Cust_id,income from customer where income=max(income);
+FAILED: SemanticException [Error 10128]: Line 1:49 Not yet supported place for UDAF 'max'
+hive> select cust_id.sal,max(struct(cust_id.sal,cname)).col1 as cname,max(struct(cust_id.sal,cname)).col2 as max_income from customer group by cust_id.sal;
+FAILED: SemanticException [Error 10042]: Line 1:137 . Operator is only supported on struct or list of struct types 'sal'
+hive> select cust_id,max(income),min(income) from customer group by cust_id;
+Query ID = hdoop_20210707192355_1b691f8e-99de-4ae4-a24c-1df01497a3bc
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0010, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0010/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0010
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-07-07 19:24:18,518 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 19:24:37,367 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.44 sec
+2021-07-07 19:24:58,555 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.0 sec
+MapReduce Total cumulative CPU time: 7 seconds 0 msec
+Ended Job = job_1625659707217_0010
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.0 sec   HDFS Read: 14923 HDFS Write: 247 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 0 msec
+OK
+201	30000.0	30000.0
+202	80000.0	80000.0
+203	50000.0	50000.0
+204	60000.0	60000.0
+205	70000.0	70000.0
+Time taken: 65.304 seconds, Fetched: 5 row(s)
+hive> select cust_id,max(income) from customer group by cust_id;
+Query ID = hdoop_20210707192602_a8a47358-a8a1-4d62-88fb-7ef595362a4d
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0011, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0011/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0011
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-07-07 19:26:25,331 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 19:26:41,849 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.49 sec
+2021-07-07 19:26:57,006 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.18 sec
+MapReduce Total cumulative CPU time: 7 seconds 180 msec
+Ended Job = job_1625659707217_0011
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.18 sec   HDFS Read: 13920 HDFS Write: 207 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 180 msec
+OK
+201	30000.0
+202	80000.0
+203	50000.0
+204	60000.0
+205	70000.0
+Time taken: 56.919 seconds, Fetched: 5 row(s)
+hive> select cust_id,max(income) from customer having income=max(income);
+FAILED: SemanticException HAVING specified without GROUP BY
+hive> select cust_id,max(income) from customer having income=max(income) group by cust_id;
+FAILED: ParseException line 1:67 missing EOF at 'group' near ')'
+hive> select cust_id,max(income) from customer having max(income) group by cust_id;
+FAILED: ParseException line 1:60 missing EOF at 'group' near ')'
+hive> select cust_id,max(income) from customer  group by cust_id having max(income);
+Query ID = hdoop_20210707193000_ff100b65-d549-4c2e-beff-40f12364cc81
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0012, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0012/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0012
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-07-07 19:30:28,848 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 19:30:44,286 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.55 sec
+2021-07-07 19:31:42,708 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.55 sec
+MapReduce Total cumulative CPU time: 3 seconds 550 msec
+Ended Job = job_1625659707217_0012 with errors
+Error during job, obtaining debugging information...
+Examining task ID: task_1625659707217_0012_m_000000 (and more) from job job_1625659707217_0012
+
+Task with the most failures(4): 
+-----
+Task ID:
+  task_1625659707217_0012_r_000000
+
+URL:
+  http://localhost:8088/taskdetails.jsp?jobid=job_1625659707217_0012&tipid=task_1625659707217_0012_r_000000
+-----
+Diagnostic Messages for this Task:
+Error: java.lang.RuntimeException: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing row (tag=0) {"key":{"_col0":202},"value":{"_col0":80000.0}}
+	at org.apache.hadoop.hive.ql.exec.mr.ExecReducer.reduce(ExecReducer.java:255)
+	at org.apache.hadoop.mapred.ReduceTask.runOldReducer(ReduceTask.java:445)
+	at org.apache.hadoop.mapred.ReduceTask.run(ReduceTask.java:393)
+	at org.apache.hadoop.mapred.YarnChild$2.run(YarnChild.java:174)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:422)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1730)
+	at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:168)
+Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: Hive Runtime Error while processing row (tag=0) {"key":{"_col0":202},"value":{"_col0":80000.0}}
+	at org.apache.hadoop.hive.ql.exec.mr.ExecReducer.reduce(ExecReducer.java:243)
+	... 7 more
+Caused by: org.apache.hadoop.hive.ql.metadata.HiveException: java.lang.ClassCastException: java.lang.Float cannot be cast to java.lang.Boolean
+	at org.apache.hadoop.hive.ql.exec.GroupByOperator.process(GroupByOperator.java:795)
+	at org.apache.hadoop.hive.ql.exec.mr.ExecReducer.reduce(ExecReducer.java:234)
+	... 7 more
+Caused by: java.lang.ClassCastException: java.lang.Float cannot be cast to java.lang.Boolean
+	at org.apache.hadoop.hive.ql.exec.FilterOperator.process(FilterOperator.java:124)
+	at org.apache.hadoop.hive.ql.exec.Operator.baseForward(Operator.java:995)
+	at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:941)
+	at org.apache.hadoop.hive.ql.exec.Operator.forward(Operator.java:928)
+	at org.apache.hadoop.hive.ql.exec.GroupByOperator.forward(GroupByOperator.java:1050)
+	at org.apache.hadoop.hive.ql.exec.GroupByOperator.processAggr(GroupByOperator.java:850)
+	at org.apache.hadoop.hive.ql.exec.GroupByOperator.processKey(GroupByOperator.java:724)
+	at org.apache.hadoop.hive.ql.exec.GroupByOperator.process(GroupByOperator.java:790)
+	... 8 more
+
+
+FAILED: Execution Error, return code 2 from org.apache.hadoop.hive.ql.exec.mr.MapRedTask
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 3.55 sec   HDFS Read: 7110 HDFS Write: 0 FAIL
+Total MapReduce CPU Time Spent: 3 seconds 550 msec
+hive> select cust_id,cname,income from customer  group by cust_id having max(income);
+FAILED: SemanticException [Error 10025]: Line 1:15 Expression not in GROUP BY key 'cname'
+hive> select cust_id,cname,income from customer  group by cust_id,cname having max(income);
+FAILED: SemanticException [Error 10025]: Line 1:21 Expression not in GROUP BY key 'income'
+hive> select max(income),min(income) from customer;
+Query ID = hdoop_20210707193343_26db9c79-5f73-45b3-aeff-ba29babcafe8
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0013, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0013/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0013
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-07-07 19:34:10,554 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 19:34:35,114 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.73 sec
+2021-07-07 19:34:56,125 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.27 sec
+MapReduce Total cumulative CPU time: 7 seconds 270 msec
+Ended Job = job_1625659707217_0013
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.27 sec   HDFS Read: 14424 HDFS Write: 115 SUCCESS
+Total MapReduce CPU Time Spent: 7 seconds 270 msec
+OK
+80000.0	30000.0
+Time taken: 74.951 seconds, Fetched: 1 row(s)
+hive> select c.cust_id,c.cname from customer c,accounts a where c.cust_id=a.cust_id;
+Query ID = hdoop_20210707193652_ef40fc8a-51cd-4394-ae52-dcd7e9b1ca2f
+Total jobs = 1
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1625659707217_0014, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0014/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0014
+Hadoop job information for Stage-3: number of mappers: 1; number of reducers: 0
+2021-07-07 19:37:47,229 Stage-3 map = 0%,  reduce = 0%
+2021-07-07 19:38:05,529 Stage-3 map = 100%,  reduce = 0%, Cumulative CPU 4.46 sec
+MapReduce Total cumulative CPU time: 4 seconds 460 msec
+Ended Job = job_1625659707217_0014
+MapReduce Jobs Launched: 
+Stage-Stage-3: Map: 1   Cumulative CPU: 4.46 sec   HDFS Read: 9747 HDFS Write: 202 SUCCESS
+Total MapReduce CPU Time Spent: 4 seconds 460 msec
+OK
+201	Asha
+202	Goutam
+202	Goutam
+203	Bharati
+203	Bharati
+Time taken: 75.583 seconds, Fetched: 5 row(s)
+hive> select distinct c.cust_id,c.cname from customer c,accounts a where c.cust_id=a.cust_id;
+Query ID = hdoop_20210707193831_10007965-9eec-4d03-b6af-3f0930c8ead4
+Total jobs = 1
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0015, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0015/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0015
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2021-07-07 19:39:24,008 Stage-2 map = 0%,  reduce = 0%
+2021-07-07 19:39:43,218 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 4.77 sec
+2021-07-07 19:40:03,330 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 8.48 sec
+MapReduce Total cumulative CPU time: 8 seconds 480 msec
+Ended Job = job_1625659707217_0015
+MapReduce Jobs Launched: 
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 8.48 sec   HDFS Read: 18853 HDFS Write: 155 SUCCESS
+Total MapReduce CPU Time Spent: 8 seconds 480 msec
+OK
+201	Asha
+202	Goutam
+203	Bharati
+Time taken: 93.773 seconds, Fetched: 3 row(s)
+hive> insert into customer values(206,"Pooja",10000.00,304,"1995-07-20");
+Query ID = hdoop_20210707194117_938498a1-f059-4841-9081-9aebceb6c069
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1625659707217_0016, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0016/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0016
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0
+2021-07-07 19:41:41,772 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 19:41:59,078 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.18 sec
+MapReduce Total cumulative CPU time: 4 seconds 180 msec
+Ended Job = job_1625659707217_0016
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://127.0.0.1:9000/user/hive/warehouse/cust.db/customer/.hive-staging_hive_2021-07-07_19-41-17_807_5514036148250295228-1/-ext-10000
+Loading data to table cust.customer
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1   Cumulative CPU: 4.18 sec   HDFS Read: 6396 HDFS Write: 102 SUCCESS
+Total MapReduce CPU Time Spent: 4 seconds 180 msec
+OK
+Time taken: 46.626 seconds
+hive> select cust_id,cname,income from customer where income<20000;
+OK
+206	Pooja	10000.0
+Time taken: 1.239 seconds, Fetched: 1 row(s)
+hive> select cust_id,cname,dob from customer where dob not in("1990-10-10","1993-02-01") group by cust_id,cname,dob order by cust_id DESC;
+Query ID = hdoop_20210707194459_6bf1b1a0-3492-48bc-88af-eacf33bd3deb
+Total jobs = 2
+Launching Job 1 out of 2
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0017, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0017/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0017
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-07-07 19:45:23,248 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 19:45:40,764 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.51 sec
+2021-07-07 19:45:56,717 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 7.87 sec
+MapReduce Total cumulative CPU time: 7 seconds 870 msec
+Ended Job = job_1625659707217_0017
+Launching Job 2 out of 2
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0018, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0018/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0018
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2021-07-07 19:46:24,271 Stage-2 map = 0%,  reduce = 0%
+2021-07-07 19:46:38,228 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 3.17 sec
+2021-07-07 19:46:54,236 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 6.94 sec
+MapReduce Total cumulative CPU time: 6 seconds 940 msec
+Ended Job = job_1625659707217_0018
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 7.87 sec   HDFS Read: 13435 HDFS Write: 270 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 6.94 sec   HDFS Read: 8317 HDFS Write: 291 SUCCESS
+Total MapReduce CPU Time Spent: 14 seconds 810 msec
+OK
+206	Pooja	1995-07-20
+205	Nandita	1992-06-15
+204	Pavitra	1990-07-26
+203	Bharati	1991-06-26
+202	Goutam	2000-11-16
+201	Asha	2000-07-27
+Time taken: 116.55 seconds, Fetched: 6 row(s)
+hive> select cust_id,cname,dob from customer where dob>="1993-02-01" and dob<="1990-10-10" group by cust_id,cname,dob order by cust_id DESC;
+Query ID = hdoop_20210707195005_ced4ce2a-731e-440b-a307-c152641a81cf
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0019, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0019/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0019
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-07-07 19:50:26,788 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 19:50:42,013 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.15 sec
+2021-07-07 19:50:55,821 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 6.48 sec
+MapReduce Total cumulative CPU time: 6 seconds 480 msec
+Ended Job = job_1625659707217_0019
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 6.48 sec   HDFS Read: 12014 HDFS Write: 87 SUCCESS
+Total MapReduce CPU Time Spent: 6 seconds 480 msec
+OK
+Time taken: 52.328 seconds
+hive> select cust_id,cname,dob from customer where dob>="1993-02-01" group by cust_id,cname,dob order by cust_id DESC;
+Query ID = hdoop_20210707195243_a75e21fc-9560-4e0f-9e94-5c7271475884
+Total jobs = 2
+Launching Job 1 out of 2
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0020, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0020/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0020
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-07-07 19:53:05,637 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 19:53:21,708 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.61 sec
+2021-07-07 19:53:36,584 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 8.11 sec
+MapReduce Total cumulative CPU time: 8 seconds 110 msec
+Ended Job = job_1625659707217_0020
+Launching Job 2 out of 2
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0021, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0021/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0021
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2021-07-07 19:54:02,228 Stage-2 map = 0%,  reduce = 0%
+2021-07-07 19:54:15,200 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 2.91 sec
+2021-07-07 19:54:30,187 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 6.13 sec
+MapReduce Total cumulative CPU time: 6 seconds 130 msec
+Ended Job = job_1625659707217_0021
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 8.11 sec   HDFS Read: 13189 HDFS Write: 180 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 6.13 sec   HDFS Read: 8227 HDFS Write: 186 SUCCESS
+Total MapReduce CPU Time Spent: 14 seconds 240 msec
+OK
+206	Pooja	1995-07-20
+202	Goutam	2000-11-16
+201	Asha	2000-07-27
+Time taken: 108.03 seconds, Fetched: 3 row(s)
+hive> select cust_id,cname,dob from customer where dob>="1993-02-01" and dob<="1990-10-10" group by cust_id,cname,dob order by cust_id DESC;
+Query ID = hdoop_20210707195504_af7cc67d-09a2-490c-97da-4ae143dc6031
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0022, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0022/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0022
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-07-07 19:55:25,755 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 19:55:39,533 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.13 sec
+2021-07-07 19:55:53,306 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 6.52 sec
+MapReduce Total cumulative CPU time: 6 seconds 520 msec
+Ended Job = job_1625659707217_0022
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 6.52 sec   HDFS Read: 12014 HDFS Write: 87 SUCCESS
+Total MapReduce CPU Time Spent: 6 seconds 520 msec
+OK
+Time taken: 50.82 seconds
+hive> select cust_id,cname,dob from customer where dob not in(between("1990-10-10","1993-02-01")) group by cust_id,cname,dob order by cust_id DESC;
+NoViableAltException(46@[592:1: precedenceSimilarExpressionIn[CommonTree t] : ( ( subQueryExpression )=> subQueryExpression -> ^( TOK_SUBQUERY_EXPR ^( TOK_SUBQUERY_OP KW_IN ) subQueryExpression ) |expr= expressionsInParenthesis[false, false] -> ^( TOK_FUNCTION Identifier["in"] ) );])
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser$DFA52.specialStateTransition(HiveParser_IdentifiersParser.java:36124)
+	at org.antlr.runtime.DFA.predict(DFA.java:80)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionIn(HiveParser_IdentifiersParser.java:9722)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionAtom(HiveParser_IdentifiersParser.java:9502)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionPartNot(HiveParser_IdentifiersParser.java:9955)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionPart(HiveParser_IdentifiersParser.java:9375)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionMain(HiveParser_IdentifiersParser.java:9156)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpression(HiveParser_IdentifiersParser.java:9040)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceEqualExpression(HiveParser_IdentifiersParser.java:10254)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceNotExpression(HiveParser_IdentifiersParser.java:10541)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceAndExpression(HiveParser_IdentifiersParser.java:10650)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceOrExpression(HiveParser_IdentifiersParser.java:10791)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.expression(HiveParser_IdentifiersParser.java:6870)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.expression(HiveParser.java:45074)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_FromClauseParser.searchCondition(HiveParser_FromClauseParser.java:5986)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_FromClauseParser.whereClause(HiveParser_FromClauseParser.java:5904)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.whereClause(HiveParser.java:45324)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.atomSelectStatement(HiveParser.java:39812)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.selectStatement(HiveParser.java:40044)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.regularBody(HiveParser.java:39690)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.queryStatementExpressionBody(HiveParser.java:38900)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.queryStatementExpression(HiveParser.java:38788)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.execStatement(HiveParser.java:2396)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.statement(HiveParser.java:1420)
+	at org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:220)
+	at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:74)
+	at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:67)
+	at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:616)
+	at org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1826)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1773)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1768)
+	at org.apache.hadoop.hive.ql.reexec.ReExecDriver.compileAndRespond(ReExecDriver.java:126)
+	at org.apache.hadoop.hive.ql.reexec.ReExecDriver.run(ReExecDriver.java:214)
+	at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:239)
+	at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:188)
+	at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:402)
+	at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:821)
+	at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:759)
+	at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:683)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:323)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:236)
+FAILED: ParseException line 1:56 cannot recognize input near '(' 'between' '(' in expression specification
+hive> select cust_id,cname,dob from customer where dob not in(dob between("1990-10-10","1993-02-01")) group by cust_id,cname,dob order by cust_id DESC;
+MismatchedTokenException(374!=36)
+	at org.antlr.runtime.BaseRecognizer.recoverFromMismatchedToken(BaseRecognizer.java:617)
+	at org.antlr.runtime.BaseRecognizer.match(BaseRecognizer.java:115)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionAtom(HiveParser_IdentifiersParser.java:9525)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionPart(HiveParser_IdentifiersParser.java:9352)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionMain(HiveParser_IdentifiersParser.java:9156)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpression(HiveParser_IdentifiersParser.java:9040)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceEqualExpression(HiveParser_IdentifiersParser.java:10254)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceNotExpression(HiveParser_IdentifiersParser.java:10541)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceAndExpression(HiveParser_IdentifiersParser.java:10650)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceOrExpression(HiveParser_IdentifiersParser.java:10791)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.expression(HiveParser_IdentifiersParser.java:6870)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.expressionsNotInParenthesis(HiveParser_IdentifiersParser.java:2365)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.expressionsInParenthesis(HiveParser_IdentifiersParser.java:2311)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionIn(HiveParser_IdentifiersParser.java:9775)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionAtom(HiveParser_IdentifiersParser.java:9502)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionPartNot(HiveParser_IdentifiersParser.java:9955)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionPart(HiveParser_IdentifiersParser.java:9375)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionMain(HiveParser_IdentifiersParser.java:9156)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpression(HiveParser_IdentifiersParser.java:9040)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceEqualExpression(HiveParser_IdentifiersParser.java:10254)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceNotExpression(HiveParser_IdentifiersParser.java:10541)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceAndExpression(HiveParser_IdentifiersParser.java:10650)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceOrExpression(HiveParser_IdentifiersParser.java:10791)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.expression(HiveParser_IdentifiersParser.java:6870)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.expression(HiveParser.java:45074)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_FromClauseParser.searchCondition(HiveParser_FromClauseParser.java:5986)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_FromClauseParser.whereClause(HiveParser_FromClauseParser.java:5904)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.whereClause(HiveParser.java:45324)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.atomSelectStatement(HiveParser.java:39812)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.selectStatement(HiveParser.java:40044)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.regularBody(HiveParser.java:39690)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.queryStatementExpressionBody(HiveParser.java:38900)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.queryStatementExpression(HiveParser.java:38788)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.execStatement(HiveParser.java:2396)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.statement(HiveParser.java:1420)
+	at org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:220)
+	at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:74)
+	at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:67)
+	at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:616)
+	at org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1826)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1773)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1768)
+	at org.apache.hadoop.hive.ql.reexec.ReExecDriver.compileAndRespond(ReExecDriver.java:126)
+	at org.apache.hadoop.hive.ql.reexec.ReExecDriver.run(ReExecDriver.java:214)
+	at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:239)
+	at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:188)
+	at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:402)
+	at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:821)
+	at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:759)
+	at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:683)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:323)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:236)
+FAILED: ParseException line 1:94 mismatched input ')' expecting AND near ')' in expression specification
+hive> select cust_id,cname,dob from customer where dob not in(dob between"1990-10-10" and "1993-02-01") group by cust_id,cname,dob order by cust_id DESC;
+FAILED: SemanticException Line 0:-1 Wrong arguments '"1993-02-01"': The arguments for IN should be the same type! Types are: {date IN (boolean)}
+hive> select cust_id,cname,dob from customer where dob not in(dob between "1990-10-10" and "1993-02-01") group by cust_id,cname,dob order by cust_id DESC;
+FAILED: SemanticException Line 0:-1 Wrong arguments '"1993-02-01"': The arguments for IN should be the same type! Types are: {date IN (boolean)}
+hive> select cust_id,cname,dob from customer where dob not in(between "1990-10-10" and "1993-02-01") group by cust_id,cname,dob order by cust_id DESC;
+NoViableAltException(46@[592:1: precedenceSimilarExpressionIn[CommonTree t] : ( ( subQueryExpression )=> subQueryExpression -> ^( TOK_SUBQUERY_EXPR ^( TOK_SUBQUERY_OP KW_IN ) subQueryExpression ) |expr= expressionsInParenthesis[false, false] -> ^( TOK_FUNCTION Identifier["in"] ) );])
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser$DFA52.specialStateTransition(HiveParser_IdentifiersParser.java:36124)
+	at org.antlr.runtime.DFA.predict(DFA.java:80)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionIn(HiveParser_IdentifiersParser.java:9722)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionAtom(HiveParser_IdentifiersParser.java:9502)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionPartNot(HiveParser_IdentifiersParser.java:9955)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionPart(HiveParser_IdentifiersParser.java:9375)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpressionMain(HiveParser_IdentifiersParser.java:9156)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceSimilarExpression(HiveParser_IdentifiersParser.java:9040)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceEqualExpression(HiveParser_IdentifiersParser.java:10254)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceNotExpression(HiveParser_IdentifiersParser.java:10541)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceAndExpression(HiveParser_IdentifiersParser.java:10650)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.precedenceOrExpression(HiveParser_IdentifiersParser.java:10791)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_IdentifiersParser.expression(HiveParser_IdentifiersParser.java:6870)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.expression(HiveParser.java:45074)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_FromClauseParser.searchCondition(HiveParser_FromClauseParser.java:5986)
+	at org.apache.hadoop.hive.ql.parse.HiveParser_FromClauseParser.whereClause(HiveParser_FromClauseParser.java:5904)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.whereClause(HiveParser.java:45324)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.atomSelectStatement(HiveParser.java:39812)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.selectStatement(HiveParser.java:40044)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.regularBody(HiveParser.java:39690)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.queryStatementExpressionBody(HiveParser.java:38900)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.queryStatementExpression(HiveParser.java:38788)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.execStatement(HiveParser.java:2396)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.statement(HiveParser.java:1420)
+	at org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:220)
+	at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:74)
+	at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:67)
+	at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:616)
+	at org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1826)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1773)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1768)
+	at org.apache.hadoop.hive.ql.reexec.ReExecDriver.compileAndRespond(ReExecDriver.java:126)
+	at org.apache.hadoop.hive.ql.reexec.ReExecDriver.run(ReExecDriver.java:214)
+	at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:239)
+	at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:188)
+	at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:402)
+	at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:821)
+	at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:759)
+	at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:683)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:323)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:236)
+FAILED: ParseException line 1:56 cannot recognize input near '(' 'between' '"1990-10-10"' in expression specification
+hive> select cust_id,cname,dob from customer where dob not between "1990-10-10" and "1993-02-01" group by cust_id,cname,dob order by cust_id DESC;
+Query ID = hdoop_20210707200506_886220b8-841b-4802-82fc-264ecbbaef06
+Total jobs = 2
+Launching Job 1 out of 2
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0023, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0023/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0023
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2021-07-07 20:05:28,309 Stage-1 map = 0%,  reduce = 0%
+2021-07-07 20:05:44,284 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 4.35 sec
+2021-07-07 20:06:01,672 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 8.19 sec
+MapReduce Total cumulative CPU time: 8 seconds 190 msec
+Ended Job = job_1625659707217_0023
+Launching Job 2 out of 2
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1625659707217_0024, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0024/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0024
+Hadoop job information for Stage-2: number of mappers: 1; number of reducers: 1
+2021-07-07 20:07:13,729 Stage-2 map = 100%,  reduce = 0%, Cumulative CPU 3.53 sec
+2021-07-07 20:07:17,011 Stage-2 map = 100%,  reduce = 100%, Cumulative CPU 6.98 sec
+MapReduce Total cumulative CPU time: 6 seconds 980 msec
+Ended Job = job_1625659707217_0024
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 8.19 sec   HDFS Read: 13556 HDFS Write: 210 SUCCESS
+Stage-Stage-2: Map: 1  Reduce: 1   Cumulative CPU: 6.98 sec   HDFS Read: 8247 HDFS Write: 221 SUCCESS
+Total MapReduce CPU Time Spent: 15 seconds 170 msec
+OK
+206	Pooja	1995-07-20
+204	Pavitra	1990-07-26
+202	Goutam	2000-11-16
+201	Asha	2000-07-27
+Time taken: 133.067 seconds, Fetched: 4 row(s)
+hive> create view cust_account as a.cust_id,a.bank_id,a.acc_id,cname from customer,accounts a where c.cust_id=a.cust_id;
+NoViableAltException(24@[])
+	at org.apache.hadoop.hive.ql.parse.HiveParser.atomSelectStatement(HiveParser.java:39767)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.selectStatement(HiveParser.java:40044)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.selectStatementWithCTE(HiveParser.java:40732)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.createViewStatement(HiveParser.java:25540)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.ddlStatement(HiveParser.java:4393)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.execStatement(HiveParser.java:2494)
+	at org.apache.hadoop.hive.ql.parse.HiveParser.statement(HiveParser.java:1420)
+	at org.apache.hadoop.hive.ql.parse.ParseDriver.parse(ParseDriver.java:220)
+	at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:74)
+	at org.apache.hadoop.hive.ql.parse.ParseUtils.parse(ParseUtils.java:67)
+	at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:616)
+	at org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1826)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1773)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1768)
+	at org.apache.hadoop.hive.ql.reexec.ReExecDriver.compileAndRespond(ReExecDriver.java:126)
+	at org.apache.hadoop.hive.ql.reexec.ReExecDriver.run(ReExecDriver.java:214)
+	at org.apache.hadoop.hive.cli.CliDriver.processLocalCmd(CliDriver.java:239)
+	at org.apache.hadoop.hive.cli.CliDriver.processCmd(CliDriver.java:188)
+	at org.apache.hadoop.hive.cli.CliDriver.processLine(CliDriver.java:402)
+	at org.apache.hadoop.hive.cli.CliDriver.executeDriver(CliDriver.java:821)
+	at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:759)
+	at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:683)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.hadoop.util.RunJar.run(RunJar.java:323)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:236)
+FAILED: ParseException line 1:28 cannot recognize input near 'a' '.' 'cust_id' in create view statement
+hive> create view cust_account as select a.cust_id,a.bank_id,a.acc_id,cname from customer,accounts a where c.cust_id=a.cust_id;
+FAILED: SemanticException [Error 10004]: Line 1:101 Invalid table alias or column reference 'c': (possible column names are: customer.cust_id, customer.cname, customer.income, customer.acc_id, customer.dob, a.acc_id, a.cust_id, a.bank_id)
+hive> create view cust_account as select a.cust_id,a.bank_id,a.acc_id,cname from customer c,accounts a where c.cust_id=a.cust_id;
+OK
+Time taken: 0.825 seconds
+hive> select * from cust_account;
+Query ID = hdoop_20210707201051_fb5e65b8-56e5-48b2-931c-71b6e80d79eb
+Total jobs = 1
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1625659707217_0025, Tracking URL = http://asha-VirtualBox:8088/proxy/application_1625659707217_0025/
+Kill Command = /home/hdoop/hadoop-3.2.1/bin/mapred job  -kill job_1625659707217_0025
+Hadoop job information for Stage-3: number of mappers: 1; number of reducers: 0
+2021-07-07 20:11:47,513 Stage-3 map = 0%,  reduce = 0%
+2021-07-07 20:12:04,537 Stage-3 map = 100%,  reduce = 0%, Cumulative CPU 4.49 sec
+MapReduce Total cumulative CPU time: 4 seconds 490 msec
+Ended Job = job_1625659707217_0025
+MapReduce Jobs Launched: 
+Stage-Stage-3: Map: 1   Cumulative CPU: 4.49 sec   HDFS Read: 10382 HDFS Write: 242 SUCCESS
+Total MapReduce CPU Time Spent: 4 seconds 490 msec
+OK
+201	104	303	Asha
+202	101	301	Goutam
+202	103	304	Goutam
+203	102	302	Bharati
+203	105	305	Bharati
+Time taken: 74.042 seconds, Fetched: 5 row(s)
+
