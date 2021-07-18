@@ -1,0 +1,290 @@
+
+
+MOVIE
+> use movie
+switched to db movie
+> db.createCollection("Movies")
+{ "ok" : 1 }
+
+
+1)Insert atleast 15 documents into the collection movie
+db.Movies.insertMany([{_id:1,Name:"Titanic",IMDB_rating:8,Year:1997,Director:"James Cameron",Actors:['Leonardo Di Caprio','Kate Winslet','Billy Zane','Frances Fisher'],Category:"Tragedy",Awards_Recieved:"Golden Globe Awards"},{_id:2,Name:"Googly",IMDB_rating:9,Year:2013,Director:"Pavan Wadeyar",Actors:['Yash','Kirti Kharbanda','Ananth Nag','Sadhu Kokila'],Category:"Romance",Awards_Recieved:"Golden Globe Awards"},{_id:3,Name:"Kirik Party",IMDB_rating:8,Year:2017,Director:"Rishab Shetty",Actors:['Rakshit Shetty','Rashmika','Aravind','Achyuth Kumar'],Category:"Comedy",Awards_Recieved:"Academy Awards"},{_id:4,Name:"Ugram",IMDB_rating:7,Year:2014,Director:"Prashant Neel",Actors:['Sri Murali','Haripriya','Tilak','Avinash'],Category:"Tragedy",Awards_Recieved:"Golden Globe Awards"},{_id:5,Name:"KGF",IMDB_rating:9,Year:2019,Director:"Prashant Neel",Actors:['Yash','Anant Nag','Srinidhi Shetty','Achyuth Kumar'],Category:"Tragedy",Awards_Recieved:"Golden Globe Awards"},{_id:6,Name:"Aavesha",IMDB_rating:6,Year:1990,Director:"Peerala",Actors:['Shankar nag','Devraj','Geetha','Bhavya'],Category:"Drama",Awards_Recieved:"ASC Awards"},{_id:7,Name:"Ashwamedha",IMDB_rating:5,Year:1990,Director:"C. R. Simha",Actors:['Bangarappa','Keerthi','Geetanjali','Srinath'],Category:"Love",Awards_Recieved:"Golden Globe Awards"},{_id:8,Name:"Challenge",IMDB_rating:9,Year:1997,Director:"Raj Kishore",Actors:['Tiger Prabhakar','Shashikumar','Sridhar',],Category:"Disaster",Awards_Recieved:"Golden Globe Awards"},{_id:9,Name:"Kadamba",IMDB_rating:10,Year:2004,Director:"Suresh",Actors:['Vishnuvardhan','Naveen Krishna','Bhanupriya','Ramesh Bhat'],Category:"Drama",Awards_Recieved:"Academy Awards"},{_id:10,Name:"Apthamitra",IMDB_rating:9,Year:2006,Director:"P. Vasu",Actors:['Vishnuvardhan','Soundarya','Prema','Avinash'],Category:"Tragedy",Awards_Recieved:"Golden Globe Awards"},{_id:11,Name:"First Man",IMDB_rating:8,Year:1997,Director:"Damien Chazelle",Actors:['Kyle Chandler','Kate Winslet','Billy Zane','Frances Fisher'],Category:"Disaster",Awards_Recieved:"Golden Globe Awards"},{_id:12,Name:"Extinction",IMDB_rating:5,Year:1990,Director:"Ben Young",Actors:['Michael','Kate Winslet','Billy Zane','Frances Fisher'],Category:"Disaster",Awards_Recieved:"Golden Globe Awards"},{_id:13,Name:"Badla",IMDB_rating:6,Year:1957,Director:"James",Actors:['Amitabh Bachchan','Tony','Billy','Frances'],Category:"THriller",Awards_Recieved:"Academy Awards"},{_id:14,Name:"PK",IMDB_rating:8,Year:2008,Director:"Rajkumar",Actors:['Amir Khan','Anushka','Sushant','Sanjay Datt'],Category:"Comedy",Awards_Recieved:"Golden Globe Awards"},{_id:15,Name:"Mayura",IMDB_rating:10,Year:1990,Director:"Vijay",Actors:['Rajkumar','Manjula','Vajramuni','Srinath'],Category:"Tragedy",Awards_Recieved:['Golden Globe Awards','ASC Awards']}])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		1,
+		2,
+		3,
+		4,
+		5,
+		6,
+		7,
+		8,
+		9,
+		10,
+		11,
+		12,
+		13,
+		14,
+		15
+	]
+}
+
+
+
+
+2) Display the results in the formatted way
+> db.Movies.find().pretty()
+{
+	"_id" : 1,
+	"Name" : "Titanic",
+	"IMDB_rating" : 8,
+	"Year" : 1997,
+	"Director" : "James Cameron",
+	"Actors" : [
+		"Leonardo Di Caprio",
+		"Kate Winslet",
+		"Billy Zane",
+		"Frances Fisher"
+	],
+	"Category" : "Tragedy",
+	"Awards_Recieved" : "Golden Globe Awards"
+}
+{
+	"_id" : 2,
+	"Name" : "Googly",
+	"IMDB_rating" : 9,
+	"Year" : 2013,
+	"Director" : "Pavan Wadeyar",
+	"Actors" : [
+		"Yash",
+		"Kirti Kharbanda",
+		"Ananth Nag",
+		"Sadhu Kokila"
+	],
+	"Category" : "Romance",
+	"Awards_Recieved" : "Golden Globe Awards"
+}
+{
+	"_id" : 3,
+	"Name" : "Kirik Party",
+	"IMDB_rating" : 8,
+	"Year" : 2017,
+	"Director" : "Rishab Shetty",
+	"Actors" : [
+		"Rakshit Shetty",
+		"Rashmika",
+		"Aravind",
+		"Achyuth Kumar"
+	],
+	"Category" : "Comedy",
+	"Awards_Recieved" : "Academy Awards"
+}
+{
+	"_id" : 4,
+	"Name" : "Ugram",
+	"IMDB_rating" : 7,
+	"Year" : 2014,
+	"Director" : "Prashant Neel",
+	"Actors" : [
+		"Sri Murali",
+		"Haripriya",
+		"Tilak",
+		"Avinash"
+	],
+	"Category" : "Tragedy",
+	"Awards_Recieved" : "Golden Globe Awards"
+}
+{
+	"_id" : 5,
+	"Name" : "KGF",
+	"IMDB_rating" : 9,
+	"Year" : 2019,
+	"Director" : "Prashant Neel",
+	"Actors" : [
+		"Yash",
+		"Anant Nag",
+		"Srinidhi Shetty",
+		"Achyuth Kumar"
+	],
+	"Category" : "Tragedy",
+	"Awards_Recieved" : "Golden Globe Awards"
+}
+{
+	"_id" : 6,
+	"Name" : "Aavesha",
+	"IMDB_rating" : 6,
+	"Year" : 1990,
+	"Director" : "Peerala",
+	"Actors" : [
+		"Shankar nag",
+		"Devraj",
+		"Geetha",
+		"Bhavya"
+	],
+	"Category" : "Drama",
+	"Awards_Recieved" : "ASC Awards"
+}
+{
+	"_id" : 7,
+	"Name" : "Ashwamedha",
+	"IMDB_rating" : 5,
+	"Year" : 1990,
+	"Director" : "C. R. Simha",
+	"Actors" : [
+		"Bangarappa",
+		"Keerthi",
+		"Geetanjali",
+		"Srinath"
+	],
+	"Category" : "Love",
+	"Awards_Recieved" : "Golden Globe Awards"
+}
+{
+	"_id" : 8,
+	"Name" : "Challenge",
+	"IMDB_rating" : 9,
+	"Year" : 1997,
+	"Director" : "Raj Kishore",
+	"Actors" : [
+		"Tiger Prabhakar",
+		"Shashikumar",
+		"Sridhar"
+	],
+	"Category" : "Disaster",
+	"Awards_Recieved" : "Golden Globe Awards"
+}
+{
+	"_id" : 9,
+	"Name" : "Kadamba",
+	"IMDB_rating" : 10,
+	"Year" : 2004,
+	"Director" : "Suresh",
+	"Actors" : [
+		"Vishnuvardhan",
+		"Naveen Krishna",
+		"Bhanupriya",
+		"Ramesh Bhat"
+	],
+	"Category" : "Drama",
+	"Awards_Recieved" : "Academy Awards"
+}
+{
+	"_id" : 10,
+	"Name" : "Apthamitra",
+	"IMDB_rating" : 9,
+	"Year" : 2006,
+	"Director" : "P. Vasu",
+	"Actors" : [
+		"Vishnuvardhan",
+		"Soundarya",
+		"Prema",
+		"Avinash"
+	],
+	"Category" : "Tragedy",
+	"Awards_Recieved" : "Golden Globe Awards"
+}
+{
+	"_id" : 11,
+	"Name" : "First Man",
+	"IMDB_rating" : 8,
+	"Year" : 1997,
+	"Director" : "Damien Chazelle",
+	"Actors" : [
+		"Kyle Chandler",
+		"Kate Winslet",
+		"Billy Zane",
+		"Frances Fisher"
+	],
+	"Category" : "Disaster",
+	"Awards_Recieved" : "Golden Globe Awards"
+}
+{
+	"_id" : 12,
+	"Name" : "Extinction",
+	"IMDB_rating" : 5,
+	"Year" : 1990,
+	"Director" : "Ben Young",
+	"Actors" : [
+		"Michael",
+		"Kate Winslet",
+		"Billy Zane",
+		"Frances Fisher"
+	],
+	"Category" : "Disaster",
+	"Awards_Recieved" : "Golden Globe Awards"
+}
+{
+	"_id" : 13,
+	"Name" : "Badla",
+	"IMDB_rating" : 6,
+	"Year" : 1957,
+	"Director" : "James",
+	"Actors" : [
+		"Amitabh Bachchan",
+		"Tony",
+		"Billy",
+		"Frances"
+	],
+	"Category" : "THriller",
+	"Awards_Recieved" : "Academy Awards"
+}
+{
+	"_id" : 14,
+	"Name" : "PK",
+	"IMDB_rating" : 8,
+	"Year" : 2008,
+	"Director" : "Rajkumar",
+	"Actors" : [
+		"Amir Khan",
+		"Anushka",
+		"Sushant",
+		"Sanjay Datt"
+	],
+	"Category" : "Comedy",
+	"Awards_Recieved" : "Golden Globe Awards"
+}
+{
+	"_id" : 15,
+	"Name" : "Mayura",
+	"IMDB_rating" : 10,
+	"Year" : 1990,
+	"Director" : "Vijay",
+	"Actors" : [
+		"Rajkumar",
+		"Manjula",
+		"Vajramuni",
+		"Srinath"
+	],
+	"Category" : "Tragedy",
+	"Awards_Recieved" : [
+		"Golden Globe Awards",
+		"ASC Awards"
+	]
+}
+
+
+
+3) List all the movies which are having the rating between 6 and 8 and fall into the category of tragedy.
+db.Movies.find({$and:[{IMDB_rating:{$gte:6,$lt:8}},{Category:"Tragedy"}]})
+{ "_id" : 4, "Name" : "Ugram", "IMDB_rating" : 7, "Year" : 2014, "Director" : "Prashant Neel", "Actors" : [ "Sri Murali", "Haripriya", "Tilak", "Avinash" ], "Category" : "Tragedy", "Awards_Recieved" : "Golden Globe Awards" }
+
+
+4)List all the movies in which the year of release is 1990 or that comes to the category disaster
+> db.Movies.find({$or:[{Year:1990},{Category:"Disaster"}]})
+{ "_id" : 6, "Name" : "Aavesha", "IMDB_rating" : 6, "Year" : 1990, "Director" : "Peerala", "Actors" : [ "Shankar nag", "Devraj", "Geetha", "Bhavya" ], "Category" : "Drama", "Awards_Recieved" : "ASC Awards" }
+{ "_id" : 7, "Name" : "Ashwamedha", "IMDB_rating" : 5, "Year" : 1990, "Director" : "C. R. Simha", "Actors" : [ "Bangarappa", "Keerthi", "Geetanjali", "Srinath" ], "Category" : "Love", "Awards_Recieved" : "Golden Globe Awards" }
+{ "_id" : 8, "Name" : "Challenge", "IMDB_rating" : 9, "Year" : 1997, "Director" : "Raj Kishore", "Actors" : [ "Tiger Prabhakar", "Shashikumar", "Sridhar" ], "Category" : "Disaster", "Awards_Recieved" : "Golden Globe Awards" }
+{ "_id" : 11, "Name" : "First Man", "IMDB_rating" : 8, "Year" : 1997, "Director" : "Damien Chazelle", "Actors" : [ "Kyle Chandler", "Kate Winslet", "Billy Zane", "Frances Fisher" ], "Category" : "Disaster", "Awards_Recieved" : "Golden Globe Awards" }
+{ "_id" : 12, "Name" : "Extinction", "IMDB_rating" : 5, "Year" : 1990, "Director" : "Ben Young", "Actors" : [ "Michael", "Kate Winslet", "Billy Zane", "Frances Fisher" ], "Category" : "Disaster", "Awards_Recieved" : "Golden Globe Awards" }
+{ "_id" : 15, "Name" : "Mayura", "IMDB_rating" : 10, "Year" : 1990, "Director" : "Vijay", "Actors" : [ "Rajkumar", "Manjula", "Vajramuni", "Srinath" ], "Category" : "Tragedy", "Awards_Recieved" : [ "Golden Globe Awards", "ASC Awards" ] }
+
+
+
+
+5)Illustrate the use of aggregate pipeline stages(with minimum 2 stages)
+> db.Movies.aggregate([{$match:{Category:"Disaster"}},{$group:{_id:"$Year"}},{$sort:{Year:-1}}])
+{ "_id" : 1990 }
+{ "_id" : 1997 }
+
+

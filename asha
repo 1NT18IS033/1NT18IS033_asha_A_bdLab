@@ -1,0 +1,295 @@
+MongoDB shell version v4.4.4
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("58766763-bc16-495a-aa7e-2e22a04636d8") }
+MongoDB server version: 4.4.4
+---
+The server generated these startup warnings when booting: 
+        2021-03-24T08:52:19.616+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+        2021-03-24T08:52:26.010+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> use company
+switched to db company
+> db
+company
+> db.createCollection("empDeatils")
+{ "ok" : 1 }
+> show dbs
+ad       0.000GB
+admin    0.000GB
+company  0.000GB
+config   0.000GB
+knight   0.000GB
+knightl  0.000GB
+local    0.000GB
+> db.empDeatils.insertMany([{Fname:"rohan",Lname:"sharma",age:26,email:"abc.@gmail.com",phone:9007008001,exp:5},{Fname:"Mohan",Lname:"bhat",age:20,email:"xyz@gmail.com",phone:9876543210,exp:6},{Fname:"krishna",Lname:"bhat",age:25,email:"xyza@gmail.com",phone:9456543210,exp:6},{Fname:"Mohan",Lname:"naik",age:24,email:"pez@gmail.com",phone:9876543810,exp:6},{Fname:"goutam",Lname:"shetty",age:21,email:"goma@gmail.com",phone:8762918057,exp:7},{Fname:"girish",Lname:"bhat",age:24,email:"abcd@gmail.com",phone:9876543266,exp:4},{Fname:"ananya",Lname:"bhat",age:25,email:"anu@gmail.com",phone:9876773210,exp:5},{Fname:"gourav",Lname:"hegde",age:22,email:"dumm@gmail.com",phone:9876543555,exp:4},{Fname:"pooja",Lname:"bhat",age:20,email:"poo@gmail.com",phone:9999943210,exp:6},{Fname:"divya",Lname:"bhat",age:20,email:"div@gmail.com",phone:9878883210,exp:6}])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("605ac03c0802172e53ddf645"),
+		ObjectId("605ac03c0802172e53ddf646"),
+		ObjectId("605ac03c0802172e53ddf647"),
+		ObjectId("605ac03c0802172e53ddf648"),
+		ObjectId("605ac03c0802172e53ddf649"),
+		ObjectId("605ac03c0802172e53ddf64a"),
+		ObjectId("605ac03c0802172e53ddf64b"),
+		ObjectId("605ac03c0802172e53ddf64c"),
+		ObjectId("605ac03c0802172e53ddf64d"),
+		ObjectId("605ac03c0802172e53ddf64e")
+	]
+}
+> db.empDeatils.find()
+{ "_id" : ObjectId("605ac03c0802172e53ddf645"), "Fname" : "rohan", "Lname" : "sharma", "age" : 26, "email" : "abc.@gmail.com", "phone" : 9007008001, "exp" : 5 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf646"), "Fname" : "Mohan", "Lname" : "bhat", "age" : 20, "email" : "xyz@gmail.com", "phone" : 9876543210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf647"), "Fname" : "krishna", "Lname" : "bhat", "age" : 25, "email" : "xyza@gmail.com", "phone" : 9456543210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf648"), "Fname" : "Mohan", "Lname" : "naik", "age" : 24, "email" : "pez@gmail.com", "phone" : 9876543810, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf649"), "Fname" : "goutam", "Lname" : "shetty", "age" : 21, "email" : "goma@gmail.com", "phone" : 8762918057, "exp" : 7 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64a"), "Fname" : "girish", "Lname" : "bhat", "age" : 24, "email" : "abcd@gmail.com", "phone" : 9876543266, "exp" : 4 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64b"), "Fname" : "ananya", "Lname" : "bhat", "age" : 25, "email" : "anu@gmail.com", "phone" : 9876773210, "exp" : 5 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64c"), "Fname" : "gourav", "Lname" : "hegde", "age" : 22, "email" : "dumm@gmail.com", "phone" : 9876543555, "exp" : 4 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64d"), "Fname" : "pooja", "Lname" : "bhat", "age" : 20, "email" : "poo@gmail.com", "phone" : 9999943210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64e"), "Fname" : "divya", "Lname" : "bhat", "age" : 20, "email" : "div@gmail.com", "phone" : 9878883210, "exp" : 6 }
+> db.empDeatils.find({Fname:"pooja"})
+{ "_id" : ObjectId("605ac03c0802172e53ddf64d"), "Fname" : "pooja", "Lname" : "bhat", "age" : 20, "email" : "poo@gmail.com", "phone" : 9999943210, "exp" : 6 }
+> db.createCollection("test")
+{ "ok" : 1 }
+> db.test.insertMany([{_id:1,sname:"abc"},{_id:2,sname:"xyz"},{_id:3,sname:"pqr"}])
+{ "acknowledged" : true, "insertedIds" : [ 1, 2, 3 ] }
+> show collections
+empDeatils
+test
+> db.test.find()
+{ "_id" : 1, "sname" : "abc" }
+{ "_id" : 2, "sname" : "xyz" }
+{ "_id" : 3, "sname" : "pqr" }
+> db.test.drop()
+true
+> show collections
+empDeatils
+> db.empdetails.find().pretty()
+> db.empDetails.find().pretty()
+> db.empDeatils.find().pretty()
+{
+	"_id" : ObjectId("605ac03c0802172e53ddf645"),
+	"Fname" : "rohan",
+	"Lname" : "sharma",
+	"age" : 26,
+	"email" : "abc.@gmail.com",
+	"phone" : 9007008001,
+	"exp" : 5
+}
+{
+	"_id" : ObjectId("605ac03c0802172e53ddf646"),
+	"Fname" : "Mohan",
+	"Lname" : "bhat",
+	"age" : 20,
+	"email" : "xyz@gmail.com",
+	"phone" : 9876543210,
+	"exp" : 6
+}
+{
+	"_id" : ObjectId("605ac03c0802172e53ddf647"),
+	"Fname" : "krishna",
+	"Lname" : "bhat",
+	"age" : 25,
+	"email" : "xyza@gmail.com",
+	"phone" : 9456543210,
+	"exp" : 6
+}
+{
+	"_id" : ObjectId("605ac03c0802172e53ddf648"),
+	"Fname" : "Mohan",
+	"Lname" : "naik",
+	"age" : 24,
+	"email" : "pez@gmail.com",
+	"phone" : 9876543810,
+	"exp" : 6
+}
+{
+	"_id" : ObjectId("605ac03c0802172e53ddf649"),
+	"Fname" : "goutam",
+	"Lname" : "shetty",
+	"age" : 21,
+	"email" : "goma@gmail.com",
+	"phone" : 8762918057,
+	"exp" : 7
+}
+{
+	"_id" : ObjectId("605ac03c0802172e53ddf64a"),
+	"Fname" : "girish",
+	"Lname" : "bhat",
+	"age" : 24,
+	"email" : "abcd@gmail.com",
+	"phone" : 9876543266,
+	"exp" : 4
+}
+{
+	"_id" : ObjectId("605ac03c0802172e53ddf64b"),
+	"Fname" : "ananya",
+	"Lname" : "bhat",
+	"age" : 25,
+	"email" : "anu@gmail.com",
+	"phone" : 9876773210,
+	"exp" : 5
+}
+{
+	"_id" : ObjectId("605ac03c0802172e53ddf64c"),
+	"Fname" : "gourav",
+	"Lname" : "hegde",
+	"age" : 22,
+	"email" : "dumm@gmail.com",
+	"phone" : 9876543555,
+	"exp" : 4
+}
+{
+	"_id" : ObjectId("605ac03c0802172e53ddf64d"),
+	"Fname" : "pooja",
+	"Lname" : "bhat",
+	"age" : 20,
+	"email" : "poo@gmail.com",
+	"phone" : 9999943210,
+	"exp" : 6
+}
+{
+	"_id" : ObjectId("605ac03c0802172e53ddf64e"),
+	"Fname" : "divya",
+	"Lname" : "bhat",
+	"age" : 20,
+	"email" : "div@gmail.com",
+	"phone" : 9878883210,
+	"exp" : 6
+}
+> db.empDeatils.save({Fname:"pooja",Lname:"hegde",age:20,email:pooja@gmail.com,phone:9988776655,exp:6})
+uncaught exception: SyntaxError: illegal character :
+@(shell):1:66
+> db.empDeatils.save({Fname:"pooja",Lname:"hegde",age:20,email:"pooja@gmail.com",phone:9988776655,exp:6})
+WriteResult({ "nInserted" : 1 })
+> db.empDeatils.find()
+{ "_id" : ObjectId("605ac03c0802172e53ddf645"), "Fname" : "rohan", "Lname" : "sharma", "age" : 26, "email" : "abc.@gmail.com", "phone" : 9007008001, "exp" : 5 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf646"), "Fname" : "Mohan", "Lname" : "bhat", "age" : 20, "email" : "xyz@gmail.com", "phone" : 9876543210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf647"), "Fname" : "krishna", "Lname" : "bhat", "age" : 25, "email" : "xyza@gmail.com", "phone" : 9456543210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf648"), "Fname" : "Mohan", "Lname" : "naik", "age" : 24, "email" : "pez@gmail.com", "phone" : 9876543810, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf649"), "Fname" : "goutam", "Lname" : "shetty", "age" : 21, "email" : "goma@gmail.com", "phone" : 8762918057, "exp" : 7 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64a"), "Fname" : "girish", "Lname" : "bhat", "age" : 24, "email" : "abcd@gmail.com", "phone" : 9876543266, "exp" : 4 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64b"), "Fname" : "ananya", "Lname" : "bhat", "age" : 25, "email" : "anu@gmail.com", "phone" : 9876773210, "exp" : 5 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64c"), "Fname" : "gourav", "Lname" : "hegde", "age" : 22, "email" : "dumm@gmail.com", "phone" : 9876543555, "exp" : 4 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64d"), "Fname" : "pooja", "Lname" : "bhat", "age" : 20, "email" : "poo@gmail.com", "phone" : 9999943210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64e"), "Fname" : "divya", "Lname" : "bhat", "age" : 20, "email" : "div@gmail.com", "phone" : 9878883210, "exp" : 6 }
+{ "_id" : ObjectId("605ac4270802172e53ddf64f"), "Fname" : "pooja", "Lname" : "hegde", "age" : 20, "email" : "pooja@gmail.com", "phone" : 9988776655, "exp" : 6 }
+> db.empDeatils.find({Fname:"pooja"})
+{ "_id" : ObjectId("605ac03c0802172e53ddf64d"), "Fname" : "pooja", "Lname" : "bhat", "age" : 20, "email" : "poo@gmail.com", "phone" : 9999943210, "exp" : 6 }
+{ "_id" : ObjectId("605ac4270802172e53ddf64f"), "Fname" : "pooja", "Lname" : "hegde", "age" : 20, "email" : "pooja@gmail.com", "phone" : 9988776655, "exp" : 6 }
+> db.empDeatils.find({$and:[{Lname:"bhat"},{exp:5}]})
+{ "_id" : ObjectId("605ac03c0802172e53ddf64b"), "Fname" : "ananya", "Lname" : "bhat", "age" : 25, "email" : "anu@gmail.com", "phone" : 9876773210, "exp" : 5 }
+> db.empDeatils.find({exp:{$or:{5},{6}}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:31
+> db.empDeatils.find({exp:{$or:[{5},{6}]}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:32
+> db.empDeatils.find({$or:[{exp:5},{exp:6}]})
+{ "_id" : ObjectId("605ac03c0802172e53ddf645"), "Fname" : "rohan", "Lname" : "sharma", "age" : 26, "email" : "abc.@gmail.com", "phone" : 9007008001, "exp" : 5 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf646"), "Fname" : "Mohan", "Lname" : "bhat", "age" : 20, "email" : "xyz@gmail.com", "phone" : 9876543210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf647"), "Fname" : "krishna", "Lname" : "bhat", "age" : 25, "email" : "xyza@gmail.com", "phone" : 9456543210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf648"), "Fname" : "Mohan", "Lname" : "naik", "age" : 24, "email" : "pez@gmail.com", "phone" : 9876543810, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64b"), "Fname" : "ananya", "Lname" : "bhat", "age" : 25, "email" : "anu@gmail.com", "phone" : 9876773210, "exp" : 5 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64d"), "Fname" : "pooja", "Lname" : "bhat", "age" : 20, "email" : "poo@gmail.com", "phone" : 9999943210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64e"), "Fname" : "divya", "Lname" : "bhat", "age" : 20, "email" : "div@gmail.com", "phone" : 9878883210, "exp" : 6 }
+{ "_id" : ObjectId("605ac4270802172e53ddf64f"), "Fname" : "pooja", "Lname" : "hegde", "age" : 20, "email" : "pooja@gmail.com", "phone" : 9988776655, "exp" : 6 }
+> db.empDeatils.find({age:{$not:{$gt:24}}})
+{ "_id" : ObjectId("605ac03c0802172e53ddf646"), "Fname" : "Mohan", "Lname" : "bhat", "age" : 20, "email" : "xyz@gmail.com", "phone" : 9876543210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf648"), "Fname" : "Mohan", "Lname" : "naik", "age" : 24, "email" : "pez@gmail.com", "phone" : 9876543810, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf649"), "Fname" : "goutam", "Lname" : "shetty", "age" : 21, "email" : "goma@gmail.com", "phone" : 8762918057, "exp" : 7 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64a"), "Fname" : "girish", "Lname" : "bhat", "age" : 24, "email" : "abcd@gmail.com", "phone" : 9876543266, "exp" : 4 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64c"), "Fname" : "gourav", "Lname" : "hegde", "age" : 22, "email" : "dumm@gmail.com", "phone" : 9876543555, "exp" : 4 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64d"), "Fname" : "pooja", "Lname" : "bhat", "age" : 20, "email" : "poo@gmail.com", "phone" : 9999943210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64e"), "Fname" : "divya", "Lname" : "bhat", "age" : 20, "email" : "div@gmail.com", "phone" : 9878883210, "exp" : 6 }
+{ "_id" : ObjectId("605ac4270802172e53ddf64f"), "Fname" : "pooja", "Lname" : "hegde", "age" : 20, "email" : "pooja@gmail.com", "phone" : 9988776655, "exp" : 6 }
+> db.empDeatils.find({age:{$not:{$equal:20}}})
+Error: error: {
+	"ok" : 0,
+	"errmsg" : "unknown operator: $equal",
+	"code" : 2,
+	"codeName" : "BadValue"
+}
+> db.empDeatils.find({age:{$not:{$eq:20}}})
+{ "_id" : ObjectId("605ac03c0802172e53ddf645"), "Fname" : "rohan", "Lname" : "sharma", "age" : 26, "email" : "abc.@gmail.com", "phone" : 9007008001, "exp" : 5 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf647"), "Fname" : "krishna", "Lname" : "bhat", "age" : 25, "email" : "xyza@gmail.com", "phone" : 9456543210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf648"), "Fname" : "Mohan", "Lname" : "naik", "age" : 24, "email" : "pez@gmail.com", "phone" : 9876543810, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf649"), "Fname" : "goutam", "Lname" : "shetty", "age" : 21, "email" : "goma@gmail.com", "phone" : 8762918057, "exp" : 7 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64a"), "Fname" : "girish", "Lname" : "bhat", "age" : 24, "email" : "abcd@gmail.com", "phone" : 9876543266, "exp" : 4 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64b"), "Fname" : "ananya", "Lname" : "bhat", "age" : 25, "email" : "anu@gmail.com", "phone" : 9876773210, "exp" : 5 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64c"), "Fname" : "gourav", "Lname" : "hegde", "age" : 22, "email" : "dumm@gmail.com", "phone" : 9876543555, "exp" : 4 }
+> db.empDeatils.find({age:{$lte:20}})
+{ "_id" : ObjectId("605ac03c0802172e53ddf646"), "Fname" : "Mohan", "Lname" : "bhat", "age" : 20, "email" : "xyz@gmail.com", "phone" : 9876543210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64d"), "Fname" : "pooja", "Lname" : "bhat", "age" : 20, "email" : "poo@gmail.com", "phone" : 9999943210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64e"), "Fname" : "divya", "Lname" : "bhat", "age" : 20, "email" : "div@gmail.com", "phone" : 9878883210, "exp" : 6 }
+{ "_id" : ObjectId("605ac4270802172e53ddf64f"), "Fname" : "pooja", "Lname" : "hegde", "age" : 20, "email" : "pooja@gmail.com", "phone" : 9988776655, "exp" : 6 }
+> db.empDeatils.insertMany([{_id:1,Fname:"asha",Lname:"madguni",age:19,email:"ash@gmail.com",phone:9482813602,exp:5},{_id:2,Fname:"goutam",Lname:"shetty",age:21,email:"goma@gmail.com",phone:8762918057,exp:7})
+... 
+[1]+  Stopped                 mongo
+admin1@admin1-HP-280-G4-MT-Business-PC:~$ mongo
+MongoDB shell version v4.4.4
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("ade0e9d4-739e-4432-874b-b5d1d169f5eb") }
+MongoDB server version: 4.4.4
+---
+The server generated these startup warnings when booting: 
+        2021-03-24T08:52:19.616+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+        2021-03-24T08:52:26.010+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> use company
+switched to db company
+> show collections
+empDeatils
+> db.empDeatils.insertMany([{_id:1,Fname:"asha",Lname:"madguni",age:19,email:"ash@gmail.com",phone:9482813602,exp:5},{_id:2,Fname:"goutam",Lname:"shetty",age:21,email:"goma@gmail.com",phone:8762918057,exp:7}])
+{ "acknowledged" : true, "insertedIds" : [ 1, 2 ] }
+> db.empDeatils.find()
+{ "_id" : ObjectId("605ac03c0802172e53ddf645"), "Fname" : "rohan", "Lname" : "sharma", "age" : 26, "email" : "abc.@gmail.com", "phone" : 9007008001, "exp" : 5 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf646"), "Fname" : "Mohan", "Lname" : "bhat", "age" : 20, "email" : "xyz@gmail.com", "phone" : 9876543210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf647"), "Fname" : "krishna", "Lname" : "bhat", "age" : 25, "email" : "xyza@gmail.com", "phone" : 9456543210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf648"), "Fname" : "Mohan", "Lname" : "naik", "age" : 24, "email" : "pez@gmail.com", "phone" : 9876543810, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf649"), "Fname" : "goutam", "Lname" : "shetty", "age" : 21, "email" : "goma@gmail.com", "phone" : 8762918057, "exp" : 7 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64a"), "Fname" : "girish", "Lname" : "bhat", "age" : 24, "email" : "abcd@gmail.com", "phone" : 9876543266, "exp" : 4 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64b"), "Fname" : "ananya", "Lname" : "bhat", "age" : 25, "email" : "anu@gmail.com", "phone" : 9876773210, "exp" : 5 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64c"), "Fname" : "gourav", "Lname" : "hegde", "age" : 22, "email" : "dumm@gmail.com", "phone" : 9876543555, "exp" : 4 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64d"), "Fname" : "pooja", "Lname" : "bhat", "age" : 20, "email" : "poo@gmail.com", "phone" : 9999943210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64e"), "Fname" : "divya", "Lname" : "bhat", "age" : 20, "email" : "div@gmail.com", "phone" : 9878883210, "exp" : 6 }
+{ "_id" : ObjectId("605ac4270802172e53ddf64f"), "Fname" : "pooja", "Lname" : "hegde", "age" : 20, "email" : "pooja@gmail.com", "phone" : 9988776655, "exp" : 6 }
+{ "_id" : 1, "Fname" : "asha", "Lname" : "madguni", "age" : 19, "email" : "ash@gmail.com", "phone" : 9482813602, "exp" : 5 }
+{ "_id" : 2, "Fname" : "goutam", "Lname" : "shetty", "age" : 21, "email" : "goma@gmail.com", "phone" : 8762918057, "exp" : 7 }
+> db.empDeatils.find({_id:{$not:{$eq:1}}})
+{ "_id" : 2, "Fname" : "goutam", "Lname" : "shetty", "age" : 21, "email" : "goma@gmail.com", "phone" : 8762918057, "exp" : 7 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf645"), "Fname" : "rohan", "Lname" : "sharma", "age" : 26, "email" : "abc.@gmail.com", "phone" : 9007008001, "exp" : 5 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf646"), "Fname" : "Mohan", "Lname" : "bhat", "age" : 20, "email" : "xyz@gmail.com", "phone" : 9876543210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf647"), "Fname" : "krishna", "Lname" : "bhat", "age" : 25, "email" : "xyza@gmail.com", "phone" : 9456543210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf648"), "Fname" : "Mohan", "Lname" : "naik", "age" : 24, "email" : "pez@gmail.com", "phone" : 9876543810, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf649"), "Fname" : "goutam", "Lname" : "shetty", "age" : 21, "email" : "goma@gmail.com", "phone" : 8762918057, "exp" : 7 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64a"), "Fname" : "girish", "Lname" : "bhat", "age" : 24, "email" : "abcd@gmail.com", "phone" : 9876543266, "exp" : 4 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64b"), "Fname" : "ananya", "Lname" : "bhat", "age" : 25, "email" : "anu@gmail.com", "phone" : 9876773210, "exp" : 5 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64c"), "Fname" : "gourav", "Lname" : "hegde", "age" : 22, "email" : "dumm@gmail.com", "phone" : 9876543555, "exp" : 4 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64d"), "Fname" : "pooja", "Lname" : "bhat", "age" : 20, "email" : "poo@gmail.com", "phone" : 9999943210, "exp" : 6 }
+{ "_id" : ObjectId("605ac03c0802172e53ddf64e"), "Fname" : "divya", "Lname" : "bhat", "age" : 20, "email" : "div@gmail.com", "phone" : 9878883210, "exp" : 6 }
+{ "_id" : ObjectId("605ac4270802172e53ddf64f"), "Fname" : "pooja", "Lname" : "hegde", "age" : 20, "email" : "pooja@gmail.com", "phone" : 9988776655, "exp" : 6 }
+
